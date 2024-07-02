@@ -1,0 +1,47 @@
+/*Semáforo em duas vias, quando estiver vermelho em uma via, a outra tem que estar verde e pra mudar, liga o amarelo*/
+
+void setup()
+{
+pinMode(2, OUTPUT);
+pinMode(3, OUTPUT);
+pinMode(4, OUTPUT);
+pinMode(8, OUTPUT);
+pinMode(9, OUTPUT);
+pinMode(10, OUTPUT);
+}
+
+void loop()
+{
+  //VERMELHO - VERDE
+  digitalWrite(2, HIGH);
+  digitalWrite(3, LOW);
+  digitalWrite(4, LOW);
+  
+  digitalWrite(8, LOW);
+  digitalWrite(9, LOW);
+  digitalWrite(10, HIGH);
+  
+  delay(3000);
+  
+  //AMARELO
+  digitalWrite(2, HIGH);
+  digitalWrite(3, LOW);
+  digitalWrite(4, HIGH);
+  
+  digitalWrite(8, HIGH);
+  digitalWrite(9, LOW);
+  digitalWrite(10, HIGH);
+  
+  delay(1000);
+  
+  // VERDE - VERMELHO
+  digitalWrite(2, LOW);
+  digitalWrite(3, LOW);
+  digitalWrite(4, HIGH);
+  
+  digitalWrite(8, HIGH);
+  digitalWrite(9, LOW);
+  digitalWrite(10, LOW);
+  
+  delay(3000);
+}

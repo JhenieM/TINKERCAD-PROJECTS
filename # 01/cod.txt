@@ -1,0 +1,18 @@
+/*Acende a luz verde, amarela e vermelha sequencialmente em loop*/
+
+void setup() {
+  Serial.begin(9600);
+}
+String cor = "";
+
+void loop(){
+  digitalWrite(6, HIGH);
+  delay(2000);
+  digitalWrite(6, LOW);
+  digitalWrite(4, HIGH);
+  delay(2000);
+  digitalWrite(4, LOW);
+  digitalWrite(2, HIGH);
+  delay(2000);
+  digitalWrite(2, LOW);
+}

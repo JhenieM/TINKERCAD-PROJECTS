@@ -1,0 +1,27 @@
+const byte RED = 9;
+const byte GREEN = 10;
+const byte BLUE = 11;
+String senha = "SeNhA";
+
+void setup()
+{
+  Serial.begin(9600); 
+  pinMode(RED, OUTPUT);
+  pinMode(GREEN, OUTPUT);
+  pinMode (BLUE, OUTPUT);
+  
+  Serial.println("Digite a senha: ");
+}
+
+void loop() {
+    if (Serial.available()) {
+      String password = Serial.readString();
+      if (password == senha) {
+        analogWrite(RED, 0);
+        analogWrite(GREEN, 255);
+      }else {
+        analogWrite(GREEN, 0);
+        analogWrite(RED, 255);
+       }
+    }
+}
