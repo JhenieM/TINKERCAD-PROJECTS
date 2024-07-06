@@ -1,3 +1,5 @@
+/*Usuário digita a senha, se ela estiver correta acende luz verde, se estiver errrada, acende luz vermelha*/
+
 const byte RED = 9;
 const byte GREEN = 10;
 const byte BLUE = 11;

@@ -1,0 +1,50 @@
+/*Toda a vez que o usuário digitar "TROCAR" a luz muda com as cores do semáforo*/
+
+const byte RED = 9;
+const byte GREEN = 10;
+const byte BLUE = 11;
+int valorR = 0;
+int valorG = 0;
+int valorB = 0;
+
+void setup()
+{
+  Serial.begin(9600); 
+  pinMode(RED, OUTPUT);
+  pinMode(GREEN, OUTPUT);
+  pinMode (BLUE, OUTPUT);
+  
+  Serial.println("Entrada: ");
+}
+
+void loop() {
+  	if (Serial.available()) {
+      String word = Serial.readString();
+      word.toUpperCase();
+      if (word == "TROCAR") {
+        //VERDE
+        if (valorG == 0){
+          valorR = 0;
+          valorG = 255;
+          valorB = 0;
+        }
+        //AMARELO
+        else if (valorG == 255 && valorR == 0){
+          valorR = 255;
+          valorG = 255;
+          valorB = 0;
+        }
+        //VERMELHO
+        else if (valorR == 255 && valorG == 255 && valorB == 0){
+          valorR = 255;
+          valorG = 0;
+          valorB = 0;
+        }
+      }else {
+        Serial.println("Digite 'trocar'");
+      }
+      	analogWrite(RED, valorR);
+        analogWrite(GREEN, valorG);
+      	analogWrite(BLUE, valorB);
+	}
+}

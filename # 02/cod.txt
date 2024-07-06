@@ -1,4 +1,4 @@
-/*Semáforo em duas vias, quando estiver vermelho em uma via, a outra tem que estar verde e pra mudar, liga o amarelo*/
+/*Semáforo em duas vias, quando estiver vermelho em uma via, a outra tem que estar verde e para mudar, o amarelo liga*/
 
 void setup()
 {
