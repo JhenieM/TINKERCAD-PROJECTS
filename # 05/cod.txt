@@ -1,0 +1,42 @@
+/*Troca de cores de um semáforo por meio da ação de um botão*/
+
+int portaR = 10;
+int portaG = 12;
+int portaB = 11;
+int portaBtn = 5;
+int estadoBtn = 0;
+int troca = 0;
+int num = 0;
+
+void setup() {
+  pinMode(portaR, OUTPUT);
+  pinMode(portaG, OUTPUT);
+  pinMode(portaB, OUTPUT);
+  pinMode(portaBtn, INPUT);
+}
+
+void loop() {
+  estadoBtn = digitalRead(portaBtn);
+  if(estadoBtn == HIGH){
+    if(troca == 0){
+      num++;
+      troca = 1;
+    }
+  }else{
+    troca = 0;
+  }
+  if(num == 1){
+    digitalWrite(portaR, LOW);
+    digitalWrite(portaG, HIGH);
+    digitalWrite(portaB, LOW);
+  }else if(num == 2){
+    digitalWrite(portaR, HIGH);
+    digitalWrite(portaG, HIGH);
+    digitalWrite(portaB, LOW);
+  }else if (num == 3){
+    digitalWrite(portaR, HIGH);
+    digitalWrite(portaG, LOW);
+    digitalWrite(portaB, LOW);
+    num = 0;
+  }
+}
