@@ -1,0 +1,77 @@
+/*Quando o pedestre apertar botão a dinâmica dos semáforos, para os carros e os pedestres, muda*/
+
+const int pinLedCarroR = 13;
+const int pinLedCarroG = 11;
+const int pinLedCarroB = 12;
+
+const int pinLedPedestreR = 7;
+const int pinLedPedestreG = 5;
+
+const int pinBotao = 2;      
+
+/*estado do botão (pressionado ou não)*/
+int estadoInicialBotao = 0;
+int estadoFinalBotao = 0;
+
+void setup() {
+  pinMode(pinLedCarroR,OUTPUT);
+  pinMode(pinLedCarroG,OUTPUT);
+  pinMode(pinLedCarroB,OUTPUT);
+  
+  pinMode(pinLedPedestreR,OUTPUT);
+  pinMode(pinLedPedestreG,OUTPUT);
+  
+  pinMode(pinBotao, INPUT);
+  
+  /* Inicializa as luzes do semáforo */
+  digitalWrite(pinLedCarroR, LOW); 
+  digitalWrite(pinLedCarroG, HIGH);
+  digitalWrite(pinLedCarroB, LOW);
+  
+  digitalWrite(pinLedPedestreR, HIGH); 
+  digitalWrite(pinLedPedestreG, LOW);  
+  
+  Serial.begin(9600);
+}
+
+void loop() {
+  estadoInicialBotao = digitalRead(pinBotao);
+  // Lê o valor de um pino digital especificado, que pode ser HIGH ou LOW (arduini.cc).
+
+  if (estadoInicialBotao == HIGH && estadoFinalBotao == LOW) {
+    delay(3000);
+    
+    /* Carros -> amarelo */
+    digitalWrite(pinLedCarroR, HIGH);
+    digitalWrite(pinLedCarroG, HIGH);
+    delay(1000);
+    
+    /*Carros -> vermelho; Pedestres -> verde */
+    digitalWrite(pinLedCarroG, LOW);
+    digitalWrite(pinLedPedestreR, LOW);
+    digitalWrite(pinLedPedestreG, HIGH);
+    delay(3000);
+	
+    digitalWrite(pinLedPedestreG, LOW);
+    /* Pisca o vermelho (2s) */
+    for (int i = 0; i < 3; i++) {
+      
+      digitalWrite(pinLedPedestreR, LOW); 
+      delay(500);
+      digitalWrite(pinLedPedestreR, HIGH);
+      delay(500);
+    }
+
+    /* Volta ao estado inicial */
+    digitalWrite(pinLedCarroR, LOW);
+    digitalWrite(pinLedCarroG, HIGH);
+    digitalWrite(pinLedPedestreR, HIGH);
+    digitalWrite(pinLedPedestreG, LOW);
+
+    // Espera até que o botão seja pressionado novamente
+    while (digitalRead(pinBotao) == HIGH) {
+      delay(100);
+    }
+  }
+  estadoFinalBotao = estadoInicialBotao;
+}
