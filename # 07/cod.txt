@@ -1,0 +1,60 @@
+int pinos[] = {6,7,8,9,10,11,12,13};
+const int pinBotao = 2;
+int pinAtual = 5;
+int estadoInicialBtn = 0;
+int estadoFinalBtn = 0;
+int times = 0;
+int num = 0;
+int tamanho = sizeof(pinos);
+
+void setup(){
+  Serial.begin(9600);
+}
+
+void loop(){
+  estadoInicialBtn = digitalRead(pinBotao);
+  if(estadoInicialBtn == LOW && estadoFinalBtn == HIGH){
+    /*Acender e desligar o antigo*/
+    if(num == 0){
+      digitalWrite(pinAtual, LOW);
+      pinAtual += 1;
+      digitalWrite(pinAtual, HIGH);
+      times += 1;
+      if(times == 9){
+        pinAtual = 5;
+        times = 0;
+      	num = 1;
+      }
+    }
+    /*Acender e deixar aceso*/
+    if (num == 1){
+        pinAtual += 1;
+        digitalWrite(pinAtual, HIGH);
+      	times += 1;
+       if(times == 9){
+          /*Piscar*/
+          for(int i = 0; i < 5; i++){
+            for(int j = 0; j <= tamanho; j++){
+              digitalWrite(pinos[j], LOW);
+            }
+            delay(500);
+            for(int k = 0; k <= tamanho; k++){
+              digitalWrite(pinos[k], HIGH);
+            }
+            delay(500);
+          }
+         num = 2;
+       }
+      	/*Reiniciar*/
+      	if(num == 2){
+         for(int a = 0; a <= tamanho; a++){
+      		digitalWrite(pinos[a], LOW);
+ 		 }
+         pinAtual = 5;
+         times = 0;
+         num = 0;
+       }
+     }
+  }
+  estadoFinalBtn = estadoInicialBtn;
+}
