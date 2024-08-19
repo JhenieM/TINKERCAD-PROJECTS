@@ -1,3 +1,5 @@
+/*8 LEDs conectados, 1º, 2º, 3º e 4º etapas*/
+
 int pinos[] = {6,7,8,9,10,11,12,13};
 const int pinBotao = 2;
 int pinAtual = 5;
@@ -14,7 +16,7 @@ void setup(){
 void loop(){
   estadoInicialBtn = digitalRead(pinBotao);
   if(estadoInicialBtn == LOW && estadoFinalBtn == HIGH){
-    /*Acender e desligar o antigo*/
+    /*1º Acender 1 e desligar o antigo*/
     if(num == 0){
       analogWrite(pinAtual, LOW);
       pinAtual += 1;
@@ -26,13 +28,13 @@ void loop(){
       	num = 1;
       }
     }
-    /*Acender e deixar aceso*/
+    /*2º Acender e deixar todos eles acesos*/
     if (num == 1){
         pinAtual += 1;
         analogWrite(pinAtual, 200);
       	times += 1;
        if(times == 8){
-          /*Piscar*/
+          /*3º Piscar todos os leds*/
           delay(600);
           for(int i = 0; i < 5; i++){
             for(int j = 0; j <= tamanho; j++){
@@ -46,7 +48,7 @@ void loop(){
           }
          num = 2;
        }
-      	/*Reiniciar*/
+      	/*4º Reiniciar*/
       	if(num == 2){
          for(int a = 0; a <= tamanho; a++){
       		analogWrite(pinos[a], LOW);
