@@ -16,9 +16,9 @@ void loop(){
   if(estadoInicialBtn == LOW && estadoFinalBtn == HIGH){
     /*Acender e desligar o antigo*/
     if(num == 0){
-      digitalWrite(pinAtual, LOW);
+      analogWrite(pinAtual, LOW);
       pinAtual += 1;
-      digitalWrite(pinAtual, HIGH);
+      analogWrite(pinAtual, 200);
       times += 1;
       if(times == 9){
         pinAtual = 5;
@@ -29,17 +29,18 @@ void loop(){
     /*Acender e deixar aceso*/
     if (num == 1){
         pinAtual += 1;
-        digitalWrite(pinAtual, HIGH);
+        analogWrite(pinAtual, 200);
       	times += 1;
-       if(times == 9){
+       if(times == 8){
           /*Piscar*/
+          delay(600);
           for(int i = 0; i < 5; i++){
             for(int j = 0; j <= tamanho; j++){
-              digitalWrite(pinos[j], LOW);
+              analogWrite(pinos[j], LOW);
             }
             delay(500);
             for(int k = 0; k <= tamanho; k++){
-              digitalWrite(pinos[k], HIGH);
+              analogWrite(pinos[k], 200);
             }
             delay(500);
           }
@@ -48,7 +49,7 @@ void loop(){
       	/*Reiniciar*/
       	if(num == 2){
          for(int a = 0; a <= tamanho; a++){
-      		digitalWrite(pinos[a], LOW);
+      		analogWrite(pinos[a], LOW);
  		 }
          pinAtual = 5;
          times = 0;
