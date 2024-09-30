@@ -1,0 +1,54 @@
+/*Pega o número digitado no input e soma os digitos desse número até restar somente um digito. Logo, acender os LED's de acordo com o número do digito*/
+
+int leds[] = {2, 3, 4, 5, 6, 7, 8, 9, 10};
+int total_leds = 9;
+
+void setup() {
+  Serial.begin(9600);
+  for (int i = 0; i < total_leds; i++) {
+    pinMode(leds[i], OUTPUT);
+  }
+ Serial.println("Digite um numero: ");
+}
+
+void loop() {
+  
+  if (Serial.available() > 0) {
+    String input = Serial.readString();
+
+    int soma = somarDigitos(input);
+
+    while (soma >= 10) {
+      soma = somarDigitos(String(soma));
+    }
+
+    acenderLeds(soma);
+    
+    delay(4000);
+    
+    apagarLeds();
+    
+    Serial.println("Digite um numero: ");
+  }
+}
+
+int somarDigitos(String numero) {
+  int soma = 0;
+  for (int i = 0; i < numero.length(); i++) {
+    soma += numero[i] - '0';
+  }
+  return soma;
+}
+
+void acenderLeds(int quantidade) {
+  for (int i = 0; i < quantidade; i++) {
+    digitalWrite(leds[i], HIGH);
+    delay(500);
+  }
+}
+
+void apagarLeds() {
+  for (int i = 0; i < total_leds; i++) {
+    digitalWrite(leds[i], LOW);
+  }
+}
