@@ -1,0 +1,173 @@
+/*Mesma coisa dp projeto '# 08', mas agora aparecendo o número no visor de sete segmentos*/
+
+int a = 13;
+int b = 12;
+int c = 4;
+int d = 6;
+int e = 7;
+int f = 10;
+int g = 11;
+int h = 5;
+
+void setup() {
+  Serial.begin(9600);
+/*Define os pinos como saída */
+  pinMode(a, OUTPUT);
+  pinMode(b, OUTPUT);
+  pinMode(c, OUTPUT);
+  pinMode(d, OUTPUT);
+  pinMode(e, OUTPUT);
+  pinMode(f, OUTPUT);
+  pinMode(g, OUTPUT);
+  pinMode(h, OUTPUT);
+
+Serial.println("Digite um numero: "); 
+}
+
+void loop() {
+  
+  if (Serial.available() > 0) {
+    String input = Serial.readString();
+
+    int soma = somarDigitos(input);
+
+    while (soma >= 10) {
+      soma = somarDigitos(String(soma));
+    }
+
+    acenderLeds(soma);
+    
+    delay(4000);
+    
+    apagarLeds(soma);
+    
+    Serial.println("Digite um numero: ");
+  }
+}
+
+int somarDigitos(String numero) {
+  int soma = 0;
+  for (int i = 0; i < numero.length(); i++) {
+    soma += numero[i] - '0';
+  }
+  return soma;
+}
+
+void acenderLeds(int quantidade) {
+  switch(quantidade) {
+    case 1:
+    digitalWrite(b, HIGH);
+    digitalWrite(c, HIGH);
+    break;
+    case 2:
+    digitalWrite(a, HIGH);
+    digitalWrite(b, HIGH);
+    digitalWrite(g, HIGH);
+    digitalWrite(e, HIGH);
+    break;
+    case 3:
+    digitalWrite(a, HIGH);
+    digitalWrite(b, HIGH);
+    digitalWrite(g, HIGH);
+    digitalWrite(c, HIGH);
+    digitalWrite(d, HIGH);
+    break;
+    case 4:
+    digitalWrite(f, HIGH);
+    digitalWrite(g, HIGH);
+    digitalWrite(b, HIGH);
+    digitalWrite(c, HIGH);
+    break;
+    case 5:
+    digitalWrite(a, HIGH);
+    digitalWrite(f, HIGH);
+    digitalWrite(g, HIGH);
+    digitalWrite(c, HIGH);
+    digitalWrite(d, HIGH);
+    break;
+    case 6:
+    digitalWrite(a, HIGH);
+    digitalWrite(f, HIGH);
+    digitalWrite(g, HIGH);
+    digitalWrite(e, HIGH);
+    digitalWrite(d, HIGH);
+    digitalWrite(c, HIGH);
+    break;
+    case 7: 
+    digitalWrite(a, HIGH);
+    digitalWrite(b, HIGH);
+    digitalWrite(c, HIGH);
+    break;
+    case 8:
+    digitalWrite(a, HIGH);
+    digitalWrite(b, HIGH);
+    digitalWrite(c, HIGH);
+    digitalWrite(d, HIGH);
+    digitalWrite(e, HIGH);
+    digitalWrite(f, HIGH);
+    digitalWrite(g, HIGH);
+    break;
+    case 9:
+    digitalWrite(a, HIGH);
+    digitalWrite(b, HIGH);
+    digitalWrite(c, HIGH);
+    digitalWrite(f, HIGH);
+    digitalWrite(g, HIGH);
+    break;
+  }
+}
+
+void apagarLeds(int quantidade) {
+  switch(true) {
+    case 1:
+    digitalWrite(b, LOW);
+    digitalWrite(c, LOW);
+    case 2:
+    digitalWrite(a, LOW);
+    digitalWrite(b, LOW);
+    digitalWrite(g, LOW);
+    digitalWrite(e, LOW);
+    case 3:
+    digitalWrite(a, LOW);
+    digitalWrite(b, LOW);
+    digitalWrite(g, LOW);
+    digitalWrite(c, LOW);
+    digitalWrite(d, LOW);
+    case 4:
+    digitalWrite(f, LOW);
+    digitalWrite(g, LOW);
+    digitalWrite(b, LOW);
+    digitalWrite(c, LOW);
+    case 5:
+    digitalWrite(a, LOW);
+    digitalWrite(f, LOW);
+    digitalWrite(g, LOW);
+    digitalWrite(c, LOW);
+    digitalWrite(d, LOW);
+    case 6:
+    digitalWrite(a, LOW);
+    digitalWrite(f, LOW);
+    digitalWrite(g, LOW);
+    digitalWrite(e, LOW);
+    digitalWrite(d, LOW);
+    digitalWrite(c, LOW);
+    case 7: 
+    digitalWrite(a, LOW);
+    digitalWrite(b, LOW);
+    digitalWrite(c, LOW);
+    case 8:
+    digitalWrite(a, LOW);
+    digitalWrite(b, LOW);
+    digitalWrite(c, LOW);
+    digitalWrite(d, LOW);
+    digitalWrite(e, LOW);
+    digitalWrite(f, LOW);
+    digitalWrite(g, LOW);
+    case 9:
+    digitalWrite(a, LOW);
+    digitalWrite(b, LOW);
+    digitalWrite(c, LOW);
+    digitalWrite(f, LOW);
+    digitalWrite(g, LOW);
+  }
+}
