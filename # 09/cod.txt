@@ -116,6 +116,12 @@ void acenderLeds(int quantidade) {
     digitalWrite(g, HIGH);
     break;
     default:
+    digitalWrite(a, HIGH);
+    digitalWrite(b, HIGH);
+    digitalWrite(c, HIGH);
+    digitalWrite(d, HIGH);
+    digitalWrite(e, HIGH);
+    digitalWrite(f, HIGH);
     break;
   }
 }
@@ -183,6 +189,12 @@ void apagarLeds(int quantidade) {
     digitalWrite(g, LOW);
     break;
     default:
+    digitalWrite(a, LOW);
+    digitalWrite(b, LOW);
+    digitalWrite(c, LOW);
+    digitalWrite(d, LOW);
+    digitalWrite(e, LOW);
+    digitalWrite(f, LOW);
     break;
   }
 }
