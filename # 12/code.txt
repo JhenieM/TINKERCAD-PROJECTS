@@ -1,0 +1,54 @@
+/*De forma automática, o segmento mostra os números de 9 a 0 onde, a cada troca, o piezo apita. Quando o segmento chega no 0, o piezo apita diversas vezes e depois volta a contagem.*/
+
+const byte numeros[10] = {
+  0b00111111, // 0
+  0b00000110, // 1
+  0b01011011, // 2
+  0b01001111, // 3
+  0b01100110, // 4
+  0b01101101, // 5
+  0b01111101, // 6
+  0b00000111, // 7
+  0b01111111, // 8
+  0b01101111  // 9
+};
+
+const int pinos[7] = {6, 7, 3, 4, 5, 8, 9};
+const int led = 2;
+const int piezo = 11;
+
+void setup() {
+  for (int i = 0; i < 7; i++) {
+    pinMode(pinos[i], OUTPUT);
+  }
+  pinMode(led, OUTPUT);
+  pinMode(piezo, OUTPUT);
+}
+
+void loop() {
+  for (int i = 9; i >= 0; i--) {
+    mostrarNumero(i);
+    
+    tone(piezo, 1000);
+    delay(200);
+    noTone(piezo);
+    delay(1000);
+  }
+
+  for (int j = 0; j < 5; j++) {
+    digitalWrite(led, HIGH);
+    tone(piezo, 1000);
+    delay(500); 
+    digitalWrite(led, LOW);
+    noTone(piezo);
+    delay(500);
+  }
+}
+
+//Exibir número
+void mostrarNumero(int numero) {
+  byte segmentos = numeros[numero];
+  for (int i = 0; i < 7; i++) {
+    digitalWrite(pinos[i], !(segmentos & (1 << i)));
+  }
+}
